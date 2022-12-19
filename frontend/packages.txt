@@ -1,0 +1,14 @@
+unified
+remark-parse
+remark-rehype
+remark-toc
+rehype-slug
+remark-gfm
+rehype-react
+rehype-prism-plus
+rehype-raw
+@tailwindcss/typography
+react-modal
+nookies
+@apollo/client
+graphql

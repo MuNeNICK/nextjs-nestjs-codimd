@@ -1,0 +1,104 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator nestgraphql {
+   provider = "node node_modules/prisma-nestjs-graphql"
+   output = "../src/@generated/prisma-nestjs-graphql"
+   fields_Validator_from = "class-validator"
+   fields_Validator_input = true
+   decorate_1_type        = "CreateOne*Args"
+   decorate_1_field       = data
+   decorate_1_name        = ValidateNested
+   decorate_1_from        = "class-validator"
+   decorate_1_arguments   = "[]"
+   decorate_2_type        = "CreateOne*Args"
+   decorate_2_field       = data
+   decorate_2_from        = "class-transformer"
+   decorate_2_arguments   = "['() => {propertyType.0}']"
+   decorate_2_name        = Type
+}
+
+model Authors {
+  id        Int       @id @default(autoincrement())
+  color     String?   @db.VarChar(255)
+  noteId    String?   @db.Uuid
+  userId    String?   @db.Uuid
+  createdAt DateTime? @db.Timestamptz(6)
+  updatedAt DateTime? @db.Timestamptz(6)
+
+  @@unique([noteId, userId], map: "authors_note_id_user_id")
+}
+
+model Notes {
+  id               String                 @id @db.Uuid
+  ownerId          String?                @db.Uuid
+  content          String?
+  title            String?
+  createdAt        DateTime?              @db.Timestamptz(6)
+  updatedAt        DateTime?              @db.Timestamptz(6)
+  shortid          String                 @default("0000000000") @db.VarChar(255)
+  permission       enum_Notes_permission?
+  viewcount        Int?                   @default(0)
+  lastchangeuserId String?                @db.Uuid
+  lastchangeAt     DateTime?              @db.Timestamptz(6)
+  alias            String?                @db.VarChar(255)
+  savedAt          DateTime?              @db.Timestamptz(6)
+  authorship       String?
+  deletedAt        DateTime?              @db.Timestamptz(6)
+
+  @@index([alias], map: "notes_alias")
+  @@index([shortid], map: "notes_shortid")
+}
+
+model Revisions {
+  id          String    @id @db.Uuid
+  noteId      String?   @db.Uuid
+  patch       String?
+  lastContent String?
+  content     String?
+  length      Int?
+  createdAt   DateTime? @db.Timestamptz(6)
+  updatedAt   DateTime? @db.Timestamptz(6)
+  authorship  String?
+}
+
+model SequelizeMeta {
+  name String @id @db.VarChar(255)
+}
+
+model Sessions {
+  sid       String    @id @db.VarChar(36)
+  expires   DateTime? @db.Timestamptz(6)
+  data      String?
+  createdAt DateTime  @db.Timestamptz(6)
+  updatedAt DateTime  @db.Timestamptz(6)
+}
+
+model Users {
+  id           String    @id @db.Uuid
+  profileid    String?   @unique @db.VarChar(255)
+  profile      String?
+  history      String?
+  createdAt    DateTime? @db.Timestamptz(6)
+  updatedAt    DateTime? @db.Timestamptz(6)
+  accessToken  String?
+  refreshToken String?
+  email        String?
+  password     String?
+  deleteToken  String?   @db.Uuid
+}
+
+enum enum_Notes_permission {
+  freely
+  editable
+  limited
+  locked
+  protected
+  private
+}

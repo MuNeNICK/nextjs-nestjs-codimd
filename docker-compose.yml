@@ -1,0 +1,70 @@
+version: "3"
+
+services:
+  next:
+    build:      
+      context: .
+      dockerfile: ./frontend/Dockerfile
+    container_name: next-container
+    hostname: next-server
+    tty: true
+    environment:
+      - WATCHPACK_POLLING=true
+      - STATUS=development
+    ports:
+      - 3000:3000
+    volumes:
+      - ./frontend/app:/usr/src/app
+
+  nest:
+    build:      
+      context: .
+      dockerfile: ./backend/Dockerfile
+    container_name: nest-container
+    hostname: nest-server
+    tty: true
+    environment:
+      - STATUS=development
+      - DATABASE_URL=${POSTGRES_URL}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    ports:
+      - 3001:3000
+      - 5555:5555
+    volumes:
+      - ./backend/app:/usr/src/app
+
+  codimd:
+    build:      
+      context: .
+      dockerfile: ./codimd/Dockerfile
+    container_name: codimd-container
+    hostname: codimd-server
+    environment:
+      - CMD_DB_URL=${POSTGRES_URL}
+      - CMD_DOMAIN=${PUBLIC_DOMAIN}
+      - CMD_URL_PATH=${CODIMD_PATH}
+      - CMD_PROTOCOL_USESSL=true
+      - CMD_IMAGE_UPLOAD_TYPE=filesystem
+    depends_on:
+      - postgres
+    ports:
+      - "3002:3000"
+    volumes:
+      - upload-data:/home/hackmd/app/public/uploads
+    restart: always
+
+  postgres:
+    image: postgres:11.6-alpine
+    container_name: postgres-container
+    hostname: postgres-server
+    environment:
+      - POSTGRES_USER=codimd
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=codimd
+    volumes:
+      - "database-data:/var/lib/postgresql/data"
+    restart: always
+
+volumes:
+  database-data: {}
+  upload-data: {}

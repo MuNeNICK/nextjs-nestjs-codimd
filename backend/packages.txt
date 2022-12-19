@@ -1,0 +1,17 @@
+prisma
+@prisma/client
+passport
+@nestjs/passport
+passport-local
+@nestjs/jwt
+passport-jwt
+scrypt-kdf
+@types/passport-local
+@types/passport-jwt
+graphql
+@nestjs/graphql
+@nestjs/apollo
+apollo-server-express
+prisma-nestjs-graphql
+class-validator
+class-transformer
