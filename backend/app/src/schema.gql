@@ -1,0 +1,277 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Notes {
+  id: ID!
+  ownerId: String
+  content: String
+  title: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  shortid: String!
+  permission: enum_Notes_permission
+  viewcount: Int
+  lastchangeuserId: String
+  lastchangeAt: DateTime
+  alias: String
+  savedAt: DateTime
+  authorship: String
+  deletedAt: DateTime
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+enum enum_Notes_permission {
+  freely
+  editable
+  limited
+  locked
+  protected
+  private
+}
+
+type Query {
+  note(where: NotesWhereInput, orderBy: [NotesOrderByWithRelationInput!], cursor: NotesWhereUniqueInput, take: Int, skip: Int, distinct: [NotesScalarFieldEnum!]): Notes!
+  notes(where: NotesWhereInput, orderBy: [NotesOrderByWithRelationInput!], cursor: NotesWhereUniqueInput, take: Int, skip: Int, distinct: [NotesScalarFieldEnum!]): [Notes!]!
+}
+
+input NotesWhereInput {
+  AND: [NotesWhereInput!]
+  OR: [NotesWhereInput!]
+  NOT: [NotesWhereInput!]
+  id: UuidFilter
+  ownerId: UuidNullableFilter
+  content: StringNullableFilter
+  title: StringNullableFilter
+  createdAt: DateTimeNullableFilter
+  updatedAt: DateTimeNullableFilter
+  shortid: StringFilter
+  permission: Enumenum_Notes_permissionNullableFilter
+  viewcount: IntNullableFilter
+  lastchangeuserId: UuidNullableFilter
+  lastchangeAt: DateTimeNullableFilter
+  alias: StringNullableFilter
+  savedAt: DateTimeNullableFilter
+  authorship: StringNullableFilter
+  deletedAt: DateTimeNullableFilter
+}
+
+input UuidFilter {
+  equals: String
+  in: [String!]
+  notIn: [String!]
+  lt: String
+  lte: String
+  gt: String
+  gte: String
+  mode: QueryMode
+  not: NestedUuidFilter
+}
+
+enum QueryMode {
+  default
+  insensitive
+}
+
+input NestedUuidFilter {
+  equals: String
+  in: [String!]
+  notIn: [String!]
+  lt: String
+  lte: String
+  gt: String
+  gte: String
+  not: NestedUuidFilter
+}
+
+input UuidNullableFilter {
+  equals: String
+  in: [String!]
+  notIn: [String!]
+  lt: String
+  lte: String
+  gt: String
+  gte: String
+  mode: QueryMode
+  not: NestedUuidNullableFilter
+}
+
+input NestedUuidNullableFilter {
+  equals: String
+  in: [String!]
+  notIn: [String!]
+  lt: String
+  lte: String
+  gt: String
+  gte: String
+  not: NestedUuidNullableFilter
+}
+
+input StringNullableFilter {
+  equals: String
+  in: [String!]
+  notIn: [String!]
+  lt: String
+  lte: String
+  gt: String
+  gte: String
+  contains: String
+  startsWith: String
+  endsWith: String
+  mode: QueryMode
+  not: NestedStringNullableFilter
+}
+
+input NestedStringNullableFilter {
+  equals: String
+  in: [String!]
+  notIn: [String!]
+  lt: String
+  lte: String
+  gt: String
+  gte: String
+  contains: String
+  startsWith: String
+  endsWith: String
+  not: NestedStringNullableFilter
+}
+
+input DateTimeNullableFilter {
+  equals: DateTime
+  in: [DateTime!]
+  notIn: [DateTime!]
+  lt: DateTime
+  lte: DateTime
+  gt: DateTime
+  gte: DateTime
+  not: NestedDateTimeNullableFilter
+}
+
+input NestedDateTimeNullableFilter {
+  equals: DateTime
+  in: [DateTime!]
+  notIn: [DateTime!]
+  lt: DateTime
+  lte: DateTime
+  gt: DateTime
+  gte: DateTime
+  not: NestedDateTimeNullableFilter
+}
+
+input StringFilter {
+  equals: String
+  in: [String!]
+  notIn: [String!]
+  lt: String
+  lte: String
+  gt: String
+  gte: String
+  contains: String
+  startsWith: String
+  endsWith: String
+  mode: QueryMode
+  not: NestedStringFilter
+}
+
+input NestedStringFilter {
+  equals: String
+  in: [String!]
+  notIn: [String!]
+  lt: String
+  lte: String
+  gt: String
+  gte: String
+  contains: String
+  startsWith: String
+  endsWith: String
+  not: NestedStringFilter
+}
+
+input Enumenum_Notes_permissionNullableFilter {
+  equals: enum_Notes_permission
+  in: [enum_Notes_permission!]
+  notIn: [enum_Notes_permission!]
+  not: NestedEnumenum_Notes_permissionNullableFilter
+}
+
+input NestedEnumenum_Notes_permissionNullableFilter {
+  equals: enum_Notes_permission
+  in: [enum_Notes_permission!]
+  notIn: [enum_Notes_permission!]
+  not: NestedEnumenum_Notes_permissionNullableFilter
+}
+
+input IntNullableFilter {
+  equals: Int
+  in: [Int!]
+  notIn: [Int!]
+  lt: Int
+  lte: Int
+  gt: Int
+  gte: Int
+  not: NestedIntNullableFilter
+}
+
+input NestedIntNullableFilter {
+  equals: Int
+  in: [Int!]
+  notIn: [Int!]
+  lt: Int
+  lte: Int
+  gt: Int
+  gte: Int
+  not: NestedIntNullableFilter
+}
+
+input NotesOrderByWithRelationInput {
+  id: SortOrder
+  ownerId: SortOrder
+  content: SortOrder
+  title: SortOrder
+  createdAt: SortOrder
+  updatedAt: SortOrder
+  shortid: SortOrder
+  permission: SortOrder
+  viewcount: SortOrder
+  lastchangeuserId: SortOrder
+  lastchangeAt: SortOrder
+  alias: SortOrder
+  savedAt: SortOrder
+  authorship: SortOrder
+  deletedAt: SortOrder
+}
+
+enum SortOrder {
+  asc
+  desc
+}
+
+input NotesWhereUniqueInput {
+  id: String
+}
+
+enum NotesScalarFieldEnum {
+  id
+  ownerId
+  content
+  title
+  createdAt
+  updatedAt
+  shortid
+  permission
+  viewcount
+  lastchangeuserId
+  lastchangeAt
+  alias
+  savedAt
+  authorship
+  deletedAt
+}
+
+type Mutation {
+  deleteNote(where: NotesWhereUniqueInput!): Notes!
+}
