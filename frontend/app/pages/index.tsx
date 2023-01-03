@@ -25,7 +25,7 @@ export default function Index({ allPosts }: Props) {
           <Intro />
           {heroPost && (
             <HeroPost
-              title={heroPost.title}
+              title={heroPost.displayTitle}
               coverImage={heroPost.coverImage}
               date={heroPost.date}
               author={heroPost.author}
@@ -49,6 +49,7 @@ export async function getServerSideProps() {
     'author',
     'coverImage',
     'excerpt',
+    'displayTitle',
   ])
 
   return {
