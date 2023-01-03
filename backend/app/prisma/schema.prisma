@@ -2,26 +2,26 @@ generator client {
   provider = "prisma-client-js"
 }
 
+generator nestgraphql {
+  provider               = "node node_modules/prisma-nestjs-graphql"
+  output                 = "../src/@generated/prisma-nestjs-graphql"
+  decorate_2_arguments   = "['() => {propertyType.0}']"
+  decorate_2_field       = "data"
+  fields_Validator_input = "true"
+  decorate_2_type        = "CreateOne*Args"
+  decorate_1_from        = "class-validator"
+  decorate_1_type        = "CreateOne*Args"
+  fields_Validator_from  = "class-validator"
+  decorate_1_arguments   = "[]"
+  decorate_2_from        = "class-transformer"
+  decorate_2_name        = "Type"
+  decorate_1_field       = "data"
+  decorate_1_name        = "ValidateNested"
+}
+
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
-}
-
-generator nestgraphql {
-   provider = "node node_modules/prisma-nestjs-graphql"
-   output = "../src/@generated/prisma-nestjs-graphql"
-   fields_Validator_from = "class-validator"
-   fields_Validator_input = true
-   decorate_1_type        = "CreateOne*Args"
-   decorate_1_field       = data
-   decorate_1_name        = ValidateNested
-   decorate_1_from        = "class-validator"
-   decorate_1_arguments   = "[]"
-   decorate_2_type        = "CreateOne*Args"
-   decorate_2_field       = data
-   decorate_2_from        = "class-transformer"
-   decorate_2_arguments   = "['() => {propertyType.0}']"
-   decorate_2_name        = Type
 }
 
 model Authors {
