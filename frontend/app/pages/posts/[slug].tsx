@@ -96,8 +96,10 @@ export async function getServerSideProps({ params }: Params) {
 
   return {
     props: {
-      post,
-      content
+      post: {
+        ...post,
+        content
+      }
     },
   }
 }
