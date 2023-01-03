@@ -1,17 +1,34 @@
-import fs from 'fs'
-import { join } from 'path'
 import matter from 'gray-matter'
+import { initializeApollo } from './graphqlClient'
+import { POSTS_QUERY } from '../graphql/posts.query';
 
-const postsDirectory = join(process.cwd(), '_posts')
-
-export function getPostSlugs() {
-  return fs.readdirSync(postsDirectory)
+export async function getPostData() {
+  const client = initializeApollo(null, null);
+  const { data } = await client.query({query: POSTS_QUERY});
+  const posts = await data.notes
+  return posts
 }
 
-export function getPostBySlug(slug: string, fields: string[] = []) {
-  const realSlug = slug.replace(/\.md$/, '')
-  const fullPath = join(postsDirectory, `${realSlug}.md`)
-  const fileContents = fs.readFileSync(fullPath, 'utf8')
+export async function getPostSlugs() {
+  const posts = await getPostData()
+  const postslug = posts.map((note) => note.title)
+
+  return postslug
+}
+
+export async function getPostBySlug(slug: string, fields: string[] = []) {
+
+  const posts = await getPostData()
+
+  const note = posts.find((note: any) => note.title === slug)
+
+  if (typeof note === "undefined") {
+    return null
+  }
+
+  const fileContents = note.content
+
+
   const { data, content } = matter(fileContents)
 
   type Items = {
@@ -21,9 +38,9 @@ export function getPostBySlug(slug: string, fields: string[] = []) {
   const items: Items = {}
 
   // Ensure only the minimal needed data is exposed
-  fields.forEach((field) => {
+  await Promise.all(fields.map(async (field) => {
     if (field === 'slug') {
-      items[field] = realSlug
+      items[field] = slug
     }
     if (field === 'content') {
       items[field] = content
@@ -32,16 +49,15 @@ export function getPostBySlug(slug: string, fields: string[] = []) {
     if (typeof data[field] !== 'undefined') {
       items[field] = data[field]
     }
-  })
+  }))
 
   return items
 }
 
-export function getAllPosts(fields: string[] = []) {
-  const slugs = getPostSlugs()
-  const posts = slugs
-    .map((slug) => getPostBySlug(slug, fields))
-    // sort posts by date in descending order
-    .sort((post1, post2) => (post1.date > post2.date ? -1 : 1))
+export async function getAllPosts(fields: string[] = []) {
+  const slugs = await getPostSlugs()
+  const posts = await Promise.all(slugs
+    .map((slug: string) => getPostBySlug(slug, fields))
+    .sort())
   return posts
 }

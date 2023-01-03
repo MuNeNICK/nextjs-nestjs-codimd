@@ -11,6 +11,7 @@ services:
     environment:
       - WATCHPACK_POLLING=true
       - STATUS=development
+      - PUBLIC_BACKEND_URL=${PUBLIC_BACKEND_URL}
     ports:
       - 3000:3000
     volumes:
