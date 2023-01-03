@@ -29,7 +29,7 @@ export default function PageWithJSbasedForm(ctx) {
       secure: true,
     })
 
-    Router.push('/')
+    Router.push('/dashboard')
   }
   return (
     <div className="flex items-center h-screen w-full bg-teal-lighter">

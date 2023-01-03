@@ -68,7 +68,7 @@ export default function Post({ post, preview }: Props) {
             </article>
           </>
         )}
-        <Edit />
+        {editor()}
       </Container>
     </Layout>
   )
