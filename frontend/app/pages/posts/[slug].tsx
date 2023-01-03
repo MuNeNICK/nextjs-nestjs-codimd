@@ -6,6 +6,7 @@ import { parseCookies } from 'nookies'
 import { useEffect, useState } from "react"
 import { getPostBySlug } from '../../lib/api'
 import { CMS_NAME } from '../../lib/constants'
+import markdownToHtml from '../../lib/markdownToHtml'
 import type PostType from '../../interfaces/post'
 
 const Container = dynamic(() => import("../../components/container"))
@@ -56,7 +57,6 @@ export default function Post({ post, preview }: Props) {
                 <title>
                   {post.displayTitle} | Next.js Blog Example with {CMS_NAME}
                 </title>
-                {/* <meta property="og:image" content={post.ogImage.url} /> */}
               </Head>
               <PostHeader
                 title={post.displayTitle}
@@ -92,9 +92,12 @@ export async function getServerSideProps({ params }: Params) {
     'displayTitle',
   ])
 
+  const content = await markdownToHtml(post.content || '')
+
   return {
     props: {
       post,
+      content
     },
   }
 }

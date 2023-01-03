@@ -9,8 +9,8 @@ services:
     hostname: next-server
     tty: true
     environment:
-      - WATCHPACK_POLLING=true
       - STATUS=development
+      - WATCHPACK_POLLING=true
       - NEXT_PUBLIC_BACKEND_URL=${PUBLIC_BACKEND_URL}
       - NEXT_PUBLIC_HACKMD_URL=${PUBLIC_HACKMD_URL}
     ports:
@@ -27,7 +27,7 @@ services:
     hostname: nest-server
     tty: true
     environment:
-      - STATUS=development
+      - STATUS=production
       - DATABASE_URL=${POSTGRES_URL}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
       - JWT_SECRET=${JWT_SECRET}
