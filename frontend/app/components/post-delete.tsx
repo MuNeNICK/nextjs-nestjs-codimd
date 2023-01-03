@@ -49,7 +49,7 @@ const Delete = (ctx) => {
           onRequestClose={closeModal}
           style={customStyles}
         >
-        <p className="text-center mt-5 mb-8 text-5xl md:text-5xl font-bold tracking-tighter leading-tight mt-6">削除しますか？</p>
+        <p className="text-center mt-5 mb-8 text-5xl md:text-5xl font-bold tracking-tighter leading-tight mt-6">Do you want to delete it?</p>
         <div className="flex justify-between mt-24">
           <button className="shadow-lg border-solid border-2 bottom-10 px-24 py-5 rounded-full bg-white text-black" type="button" onClick={closeModal}>NO</button>
           <button className="shadow-lg px-24 py-5 rounded-full bg-black text-white" type="button" onClick={async () =>{
@@ -64,7 +64,7 @@ const Delete = (ctx) => {
                 }
             }
             `})
-            router.push(`/blog/`)
+            router.push(`/`)
           }}>OK</button>
         </div>
       </Modal>

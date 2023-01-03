@@ -2,8 +2,11 @@
 title: 'Enter title-slug here'
 displayTitle: 'Enter display title here'
 excerpt: 'Blog Description'
-date: '2022-01-27'
+coverImage: '/assets/blog/hello-world/cover.jpg'
+date: '2020-03-16T05:35:07.322Z'
 author:
-  name: MuNeNiCK
-  picture: '/assets/blog/authors/munenick.png'
+  name: Tim Neutkens
+  picture: '/assets/blog/authors/tim.jpeg'
+ogImage:
+  url: '/assets/blog/hello-world/cover.jpg'
 ---

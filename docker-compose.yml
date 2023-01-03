@@ -50,6 +50,8 @@ services:
       - CMD_URL_PATH=${CODIMD_PATH}
       - CMD_PROTOCOL_USESSL=true
       - CMD_IMAGE_UPLOAD_TYPE=filesystem
+      - CMD_ALLOW_EMAIL_REGISTER=false
+      - CMD_ALLOW_ANONYMOUS=true
     depends_on:
       - postgres
     ports:
