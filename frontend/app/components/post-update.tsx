@@ -6,7 +6,7 @@ const Update = () => {
   const title = router.query.title;
     return (
       <div className="fixed bottom-10 right-10 z-10">
-        <Link className="shadow-lg px-5 py-5 rounded-full bg-black text-white" href={`/blog/${title}`}>
+        <Link className="shadow-lg px-5 py-5 rounded-full bg-black text-white" href={`/posts/${title}`}>
           View
         </Link>
       </div>

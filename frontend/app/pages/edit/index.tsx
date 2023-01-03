@@ -10,17 +10,19 @@ export async function getServerSideProps(context) {
     const data = await getPostData()
 
     const pathname = context.query.title
-    //pathnameがundefinedの場合はルートにリダイレクト
+
     if (pathname === undefined) {
         Router.push('/')
     }
 
     const post = data.find((note: any) => note.title === `${pathname}`)
+
+    const HACKMD_URL = process.env.PUBLIC_HACKMD_URL
     
-    return { props: { post } }
+    return { props: { post, HACKMD_URL } }
 }
 
-export default function EditMD({post}) {
+export default function EditMD({post, HACKMD_URL}) {
     return (
         <>
         <Layout>
@@ -29,8 +31,8 @@ export default function EditMD({post}) {
             <iframe
                 width="100%"
                 height="1500"
-                src={`${process.env.PUBLIC_HACKMD_URL}/${post.shortid}`}
-                frameBorder="0" 
+                src={`${HACKMD_URL}/${post.shortid}`}
+                frameBorder="0"
             />
         </Layout>
         </>
