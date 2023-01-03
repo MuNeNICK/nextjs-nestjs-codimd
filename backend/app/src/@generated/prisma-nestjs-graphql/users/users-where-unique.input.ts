@@ -9,4 +9,7 @@ export class UsersWhereUniqueInput {
 
     @Field(() => String, {nullable:true})
     profileid?: string;
+
+    @Field(() => String, {nullable:true})
+    email?: string;
 }

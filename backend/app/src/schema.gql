@@ -2,6 +2,30 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type Users {
+  id: ID!
+  profileid: String
+  profile: String
+  history: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  accessToken: String
+  refreshToken: String
+  email: String
+  password: String
+  deleteToken: String
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type LoginResponse {
+  access_token: String!
+  user: Users!
+}
+
 type Notes {
   id: ID!
   ownerId: String
@@ -20,11 +44,6 @@ type Notes {
   deletedAt: DateTime
 }
 
-"""
-A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
-"""
-scalar DateTime
-
 enum enum_Notes_permission {
   freely
   editable
@@ -35,29 +54,27 @@ enum enum_Notes_permission {
 }
 
 type Query {
+  user(where: UsersWhereInput, orderBy: [UsersOrderByWithRelationInput!], cursor: UsersWhereUniqueInput, take: Int, skip: Int, distinct: [UsersScalarFieldEnum!]): Users!
+  users(where: UsersWhereInput, orderBy: [UsersOrderByWithRelationInput!], cursor: UsersWhereUniqueInput, take: Int, skip: Int, distinct: [UsersScalarFieldEnum!]): [Users!]!
   note(where: NotesWhereInput, orderBy: [NotesOrderByWithRelationInput!], cursor: NotesWhereUniqueInput, take: Int, skip: Int, distinct: [NotesScalarFieldEnum!]): Notes!
   notes(where: NotesWhereInput, orderBy: [NotesOrderByWithRelationInput!], cursor: NotesWhereUniqueInput, take: Int, skip: Int, distinct: [NotesScalarFieldEnum!]): [Notes!]!
 }
 
-input NotesWhereInput {
-  AND: [NotesWhereInput!]
-  OR: [NotesWhereInput!]
-  NOT: [NotesWhereInput!]
+input UsersWhereInput {
+  AND: [UsersWhereInput!]
+  OR: [UsersWhereInput!]
+  NOT: [UsersWhereInput!]
   id: UuidFilter
-  ownerId: UuidNullableFilter
-  content: StringNullableFilter
-  title: StringNullableFilter
+  profileid: StringNullableFilter
+  profile: StringNullableFilter
+  history: StringNullableFilter
   createdAt: DateTimeNullableFilter
   updatedAt: DateTimeNullableFilter
-  shortid: StringFilter
-  permission: Enumenum_Notes_permissionNullableFilter
-  viewcount: IntNullableFilter
-  lastchangeuserId: UuidNullableFilter
-  lastchangeAt: DateTimeNullableFilter
-  alias: StringNullableFilter
-  savedAt: DateTimeNullableFilter
-  authorship: StringNullableFilter
-  deletedAt: DateTimeNullableFilter
+  accessToken: StringNullableFilter
+  refreshToken: StringNullableFilter
+  email: StringNullableFilter
+  password: StringNullableFilter
+  deleteToken: UuidNullableFilter
 }
 
 input UuidFilter {
@@ -86,29 +103,6 @@ input NestedUuidFilter {
   gt: String
   gte: String
   not: NestedUuidFilter
-}
-
-input UuidNullableFilter {
-  equals: String
-  in: [String!]
-  notIn: [String!]
-  lt: String
-  lte: String
-  gt: String
-  gte: String
-  mode: QueryMode
-  not: NestedUuidNullableFilter
-}
-
-input NestedUuidNullableFilter {
-  equals: String
-  in: [String!]
-  notIn: [String!]
-  lt: String
-  lte: String
-  gt: String
-  gte: String
-  not: NestedUuidNullableFilter
 }
 
 input StringNullableFilter {
@@ -160,6 +154,89 @@ input NestedDateTimeNullableFilter {
   gt: DateTime
   gte: DateTime
   not: NestedDateTimeNullableFilter
+}
+
+input UuidNullableFilter {
+  equals: String
+  in: [String!]
+  notIn: [String!]
+  lt: String
+  lte: String
+  gt: String
+  gte: String
+  mode: QueryMode
+  not: NestedUuidNullableFilter
+}
+
+input NestedUuidNullableFilter {
+  equals: String
+  in: [String!]
+  notIn: [String!]
+  lt: String
+  lte: String
+  gt: String
+  gte: String
+  not: NestedUuidNullableFilter
+}
+
+input UsersOrderByWithRelationInput {
+  id: SortOrder
+  profileid: SortOrder
+  profile: SortOrder
+  history: SortOrder
+  createdAt: SortOrder
+  updatedAt: SortOrder
+  accessToken: SortOrder
+  refreshToken: SortOrder
+  email: SortOrder
+  password: SortOrder
+  deleteToken: SortOrder
+}
+
+enum SortOrder {
+  asc
+  desc
+}
+
+input UsersWhereUniqueInput {
+  id: String
+  profileid: String
+  email: String
+}
+
+enum UsersScalarFieldEnum {
+  id
+  profileid
+  profile
+  history
+  createdAt
+  updatedAt
+  accessToken
+  refreshToken
+  email
+  password
+  deleteToken
+}
+
+input NotesWhereInput {
+  AND: [NotesWhereInput!]
+  OR: [NotesWhereInput!]
+  NOT: [NotesWhereInput!]
+  id: UuidFilter
+  ownerId: UuidNullableFilter
+  content: StringNullableFilter
+  title: StringNullableFilter
+  createdAt: DateTimeNullableFilter
+  updatedAt: DateTimeNullableFilter
+  shortid: StringFilter
+  permission: Enumenum_Notes_permissionNullableFilter
+  viewcount: IntNullableFilter
+  lastchangeuserId: UuidNullableFilter
+  lastchangeAt: DateTimeNullableFilter
+  alias: StringNullableFilter
+  savedAt: DateTimeNullableFilter
+  authorship: StringNullableFilter
+  deletedAt: DateTimeNullableFilter
 }
 
 input StringFilter {
@@ -245,13 +322,9 @@ input NotesOrderByWithRelationInput {
   deletedAt: SortOrder
 }
 
-enum SortOrder {
-  asc
-  desc
-}
-
 input NotesWhereUniqueInput {
   id: String
+  title: String
 }
 
 enum NotesScalarFieldEnum {
@@ -273,5 +346,11 @@ enum NotesScalarFieldEnum {
 }
 
 type Mutation {
+  login(loginUserInput: LoginUserInput!): LoginResponse!
   deleteNote(where: NotesWhereUniqueInput!): Notes!
+}
+
+input LoginUserInput {
+  email: String!
+  password: String!
 }

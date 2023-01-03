@@ -6,7 +6,7 @@ let apolloClient: ApolloClient<NormalizedCacheObject>;
 
 function createApolloClient(ctx: { req: any }) {
   const httpLink = createHttpLink({
-    uri:  `${process.env.PUBLIC_BACKEND_URL}/graphql`,
+    uri:  `${process.env.NEXT_PUBLIC_BACKEND_URL}/graphql`,
   });
 
   const authLink = setContext((req, { headers }) => {

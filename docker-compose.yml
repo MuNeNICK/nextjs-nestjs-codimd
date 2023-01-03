@@ -11,8 +11,8 @@ services:
     environment:
       - WATCHPACK_POLLING=true
       - STATUS=development
-      - PUBLIC_BACKEND_URL=${PUBLIC_BACKEND_URL}
-      - PUBLIC_HACKMD_URL=${PUBLIC_HACKMD_URL}
+      - NEXT_PUBLIC_BACKEND_URL=${PUBLIC_BACKEND_URL}
+      - NEXT_PUBLIC_HACKMD_URL=${PUBLIC_HACKMD_URL}
     ports:
       - 3000:3000
     volumes:
@@ -30,6 +30,7 @@ services:
       - STATUS=development
       - DATABASE_URL=${POSTGRES_URL}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - JWT_SECRET=${JWT_SECRET}
     ports:
       - 3001:3000
       - 5555:5555

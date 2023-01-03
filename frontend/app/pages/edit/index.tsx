@@ -17,12 +17,11 @@ export async function getServerSideProps(context) {
 
     const post = data.find((note: any) => note.title === `${pathname}`)
 
-    const HACKMD_URL = process.env.PUBLIC_HACKMD_URL
     
-    return { props: { post, HACKMD_URL } }
+    return { props: { post } }
 }
 
-export default function EditMD({post, HACKMD_URL}) {
+export default function EditMD({post}) {
     return (
         <>
         <Layout>
@@ -31,7 +30,7 @@ export default function EditMD({post, HACKMD_URL}) {
             <iframe
                 width="100%"
                 height="1500"
-                src={`${HACKMD_URL}/${post.shortid}`}
+                src={`${process.env.NEXT_PUBLIC_HACKMD_URL}/${post.shortid}`}
                 frameBorder="0"
             />
         </Layout>

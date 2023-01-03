@@ -6,4 +6,7 @@ export class NotesWhereUniqueInput {
 
     @Field(() => String, {nullable:true})
     id?: string;
+
+    @Field(() => String, {nullable:true})
+    title?: string;
 }
